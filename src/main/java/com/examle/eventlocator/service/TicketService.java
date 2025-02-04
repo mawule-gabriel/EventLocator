@@ -79,9 +79,31 @@ public class TicketService {
         return ticketRepository.findByTicketStatus(TicketStatus.PENDING);
     }
 
+    //Update the ticket's price
+    @Transactional
+    public Ticket updateTicketPrice(UUID ticketId, double newPrice){
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+        if(ticketOptional.isEmpty()){
+            throw new IllegalArgumentException("Ticket not found with ID: " + ticketId);
+        }
 
+        Ticket ticket = ticketOptional.get();
+        ticket.setPrice(newPrice);
+        return ticketRepository.save(ticket);
+    }
 
+    //Update ticket status
+    @Transactional
+    public Ticket updateTicketStatus(UUID ticketId, TicketStatus newStatus){
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+        if(ticketOptional.isEmpty()){
+            throw new IllegalArgumentException("Ticket not found with ID: " + ticketId);
+        }
 
+        Ticket ticket = ticketOptional.get();
+        ticket.setTicketStatus(newStatus);
+        return ticketRepository.save(ticket);
+    }
 
 
 
