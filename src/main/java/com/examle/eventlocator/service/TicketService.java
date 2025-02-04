@@ -9,6 +9,7 @@ import com.examle.eventlocator.repository.TicketRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,6 +57,29 @@ public class TicketService {
 
         return ticketRepository.save(ticket);
     }
+
+
+    //Find ticket by ID
+    public Optional<Ticket> findTicketById(UUID ticketId){
+        return ticketRepository.findById(ticketId);
+    }
+
+    //Find all tickets for an event
+    public List<Ticket> findTicketsByEvents(UUID event){
+        return ticketRepository.findByEvent_Id(event);
+    }
+
+    //Find tickets by type
+    public List<Ticket> findTicketsByType(TicketType ticketType){
+        return ticketRepository.findByTicketType(ticketType);
+    }
+
+    //Find all tickets with status pending
+    public List<Ticket> findPendingTickets(){
+        return ticketRepository.findByTicketStatus(TicketStatus.PENDING);
+    }
+
+
 
 
 
